@@ -41,45 +41,26 @@ var margin =
     
 
 //Set transit speed
-var transitDuration  = 1000;
+var transitDuration  = 3000;
 var scaleForCode = 5;
 //x and y functions take domain as shown and currectly spit out the right coordinates
 var x = d3.scale.linear()
-    .domain([-scaleForCode, scaleForCode])
+    .domain([scaleForCode*(-0.08), scaleForCode])
     .range([0, width]);
 
 //x and y functions take domain as shown and currectly spit out the right coordinates
 var y = d3.scale.linear()
-    .domain([-scaleForCode*windowRatio, scaleForCode*windowRatio]) //adjusted by windowRatio
+    .domain([scaleForCode*(-0.08)*windowRatio, scaleForCode*windowRatio]) //adjusted by windowRatio
     .range([height, 0]);
 
-
-// DO I NEED THIS CODE?
-//creates a small set of lattice points in Z^2 and load them up in that empty array
-//const xRange = 12;
-//const yRange = 14;
-//var latticepoints = [];
-//for (let i= -xRange; i<=xRange;i++)
-//{
-//	for (let j=-yRange; j<=yRange; j++)
-//	{
-//		latticepoints.push([i,j]);
-//	}
-//};
-//check if they got written
-//console.log(latticepoints)
-
-// WHAT DOES THIS DO?
 //sets up the svg element to be located correctly
 var oursvg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
-//  .append("g")
-//    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
 
-//intention: Take a 2d coordinate and put point there
+//some constants
 const cRadius='2px';
 const cRadius1='2px';
 const cRadius2=x(0.5)-x(0);
@@ -87,171 +68,211 @@ const color1='black'
 const color2='blue'
 const color3='red'
 const color4='orange'
-function putPointHere(d){
-	oursvg.append('circle')
-    		.attr('class','Lpoint')
-		.attr('r',cRadius)
-		.attr('cx',x(d[0]))
-		.attr('cy',y(d[1]))
-		.attr('Lcoord',d) //Lattice base coordinate
-		.attr('fill',color1);
-}
+
+// initial scaling
+var C_1=0.6
+var C_2=0.015
+
+//some markings and label text on the axes:
+xlabels=[7.5,100,1000];
+ylabels=[10,100,1000];
+
+// line to connect to x-axis
+oursvg.selectAll('rect')
+	.data(xlabels)
+	.enter().append('line')
+		.attr('class',d => "xmark")
+		.attr('data',d => d ) //It remembers data
+		.attr('x1',d => x(d*C_1))
+		.attr('y1',y(0))
+		.attr('x2',d => x(d*C_1))
+		.attr('y2',d => y(-0.05))
+		.attr('stroke',color4)
+		.attr('opacity',1.0)
+		.attr('stroke-width','1px');
 
 
-function reducetoFD(A){
-}
+// x-axis label text
+oursvg.selectAll('rect')
+	.data(xlabels)
+	.enter().append('g')
+		.attr("class", d => "xmark_text")
+		.attr('data',d => d) //It remembers data
+		.attr("opacity", 1.0)
+		.attr('transform', d=> " translate(" + x(d*C_1)+ " ,"+y(-0.03)+")") 
+		.attr("font-size","0.6em")
+		.append("g")
+			.attr("class", "tick")
+			.append("text")  	
+			.text(d => "\\("+d+"\\)");
+
+
+// line to connect to y-axis
+oursvg.selectAll('rect')
+	.data(ylabels)
+	.enter().append('line')
+		.attr('class',d => "ymark")
+		.attr('data',d => d ) //It remembers data
+		.attr('y1',d => y(d*C_2))
+		.attr('x1',x(0))
+		.attr('y2',d => y(d*C_2))
+		.attr('x2',d => x(-0.05))
+		.attr('stroke',color4)
+		.attr('opacity',1.0)
+		.attr('stroke-width','1px');
+
+
+// y-axis label text
+oursvg.selectAll('rect')
+	.data(ylabels)
+	.enter().append('g')
+		.attr("class", d => "ymark_text")
+		.attr('data',d => d) //It remembers data
+		.attr("opacity", 1.0)
+		.attr('transform', d=> " translate(" + x(-0.3)+ " ,"+y(d*C_2)+")") 
+		.attr("font-size","0.6em")
+		.append("g")
+			.attr("class", "tick")
+			.append("text")  	
+			.text(d => "\\("+d+"\\)");
 
 
 
-//y-axis is constant multiple of x-axis and x is logarithmi
-function map_logx_rely(A,d){
-	// NEED TO CHANGE
-	var a1 = d[0]*A[0][0] + d[1]*A[0][1];
-	var a2 = d[0]*A[1][0] + d[1]*A[1][1];
-	return [a1,a2];
-}
 
-//logarithmic scaling on x
-function map_logx(A,d){
-	// NEED TO CHANGE
-	var a1 = d[0]*A[0][0] + d[1]*A[0][1];
-	var a2 = d[0]*A[1][0] + d[1]*A[1][1];
-	return [a1,a2];
-}
-
-
+const plot_these_points =  (darray,type) => {
+// A class attribute keeps track of what kind of point it is
+// Data attribute keeps track of the original data
+// Add a point for each data entry
+oursvg.selectAll('rect')
+	.data(darray)
+	.enter().append('circle')
+		.attr('class',d => type)
+		.attr('data',d => [d.d,d.c_d]) //It remembers data
+		.attr('cx',d=>x(d.d*C_1))
+		.attr('cy',d=>y(d.c_d*C_2))
+		.attr('r',d => cRadius)
+    		.attr('fill',d => color1)
+		.attr('opacity',1);
 
 
-//Draw all the points in their initial places
-    latticepoints.forEach(function(d) { 
-	  putPointHere(d);
-  });
+// Just a line to connect it to y-axis
+oursvg.selectAll('rect')
+	.data(darray)
+	.enter().append('line')
+		.attr('class',d => type)
+		.attr('data',d => [d.d,d.c_d]) //It remembers data
+		.attr('x1',d => x(d.d*C_1))
+		.attr('y1',y(0))
+		.attr('x2',d => x(d.d*C_1))
+		.attr('y2',d => y(d.c_d*C_2))
+		.attr('stroke',color2)
+		.attr('opacity',1.0)
+		.attr('stroke-width','1px');
 
 
-//minimal vector distance
+// Just a label on each data point
+oursvg.selectAll('rect')
+	.data(darray)
+	.enter().append('g')
+		.attr("class", d => type+"_text")
+		.attr('data',d => [d.d,d.c_d]) //It remembers data
+		.attr("opacity", 1.0)
+		.attr('transform', d=> " translate(" + x(d.d*C_1)+ " ,"+y(-0.03)+")") 
+		.attr("font-size","0.6em")
+		.append("g")
+		.attr("class", "tick")
+		.append("text")  	
+		.text(d => "\\("+d.d+"\\)");
+
+};
+
+//x-axis 
 oursvg.append('line')
-	.attr('class','minvector')
+	.attr('class','xaxis')
 	.attr('x1',x(0))
 	.attr('y1',y(0))
-	.attr('x2',x(0))
+	.attr('x2',x(10))
 	.attr('y2',y(0))
-	.attr('stroke',color4)
+	.attr('stroke',color1)
 	.attr('opacity',1.0)
 	.attr('stroke-width','3px');
 
-//Text should be drawn over everything else
-// This is total "Judaad". In order to manipulate this text, I have put it in a container called text1
+//y-axis 
+oursvg.append('line')
+	.attr('class','yaxis')
+	.attr('x1',x(0))
+	.attr('y1',y(0))
+	.attr('x2',x(0))
+	.attr('y2',y(8))
+	.attr('stroke',color1)
+	.attr('opacity',1.0)
+	.attr('stroke-width','3px');
+
+
+// This is total "Judaad". In order to manipulate this text, I have put it in a container called xlabel. The other texts are similar
  oursvg.append("g")
-  .attr("class", "text1")
-  .attr("opacity", 0.0)
-  .attr('transform', " translate(" + x(-2)+ " ,"+y(3*windowRatio)+")") 
-  .attr("font-size","2.2em")
+  .attr("class", "xlabel")
+  .attr("opacity", 1.0)
+  .attr('transform', " translate(" + x(1.6)+ " ,"+y(-0.1)+")") 
+  .attr("font-size","1.2em")
 	.append("g")
       	.attr("class", "tick")
       	.append("text")  	
-      	.text("\\(d =2\\)");
+	.text("\\(\\text{Dimension of packing\ } d\\)");
 
-// oursvg.append("g")
-//  .attr("class", "text2")
-//  .attr("opacity", 0.0)
-//  .attr('transform', " translate(" + x(0)+ " ,"+y(5*windowRatio)+")") 
-//  .attr("font-size","4.2em")
-//	.append("g")
-//      	.attr("class", "tick")
-//      	.append("text")  	
-//      	.text("$f(x) = e^x$");
-//oursvg
-//	.append('g')
-//	  .attr('class','tick')
-//	  .attr('transform', " translate(" + x(0)+ " ,"+y(7*windowRatio)+")") 
-//	 //   .attr("x", x(0))
-//	 //   .attr("y", y(4))
-//	    .attr("width", 1000)
-//	    .attr("height",1500)
-//	.append('text')
-//	  .text("This is some normal text")
-//	  .attr('text-anchor', 'middle')
-//	  .attr("font-size","4.2em");
-//	//	  .attr("letter-spacing","normal")
-//
-//	//	  .attr("font-family", ' "Source Sans Pro", Helvetica, sans-serif' )
-//	//	  .attr('class','title')
-//	//	  .attr('fill','red');
+//ylabel text
+ oursvg.append("g")
+  .attr("class", "ylabel")
+  .attr("opacity", 1.0)
+  .attr('transform', " translate(" + x(-0.35)+ " ,"+y(2.1)+")") 
+  .attr("font-size","1.2em")
+	.append("g")
+      	.attr("class", "tick")
+      	.append("text")  	
+	.text("\\(c_d\\)");
+
+// ylabel will change and become this in the text soon
+ oursvg.append("g")
+  .attr("class", "ylabel2")
+  .attr("opacity", 0.0)
+  .attr('transform', " translate(" + x(-0.35)+ " ,"+y(2.1)+")") 
+  .attr("font-size","1.2em")
+	.append("g")
+      	.attr("class", "tick")
+      	.append("text")  	
+	.text("\\(\\frac{c_d}{d}\\)");
 
 
-// Set a target matrix to take the lattice to and transition to it
-// Target is given as arguments a11 a12 a21 a22
-function transto(A){
-	//perform rotation on each lattice point
-	d3.selectAll('circle.Lpoint').each(function(d,i){
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-		var newcoord = multiply(A,Bcoord);
-		d3.select(this)
-     			.transition().duration(transitDuration)
-				.attr('cx',x(newcoord[0]))
-				.attr('cy',y(newcoord[1]));
-		
-	});
-}
+// To keep track of types of data points
+type_list=[];
 
-
-//Directly apply target matrix without transitioning
-function switchto(A){
-	//perform matrix on each lattice point
-	d3.selectAll('circle.Lpoint').each(function(d,i){
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-	//	console.log(Bcoord);
-		var newcoord = multiply(A,Bcoord);
-		d3.select(this)
-			.attr('cx',x(newcoord[0]))
-			.attr('cy',y(newcoord[1]));
-	});
-}
-
-//Randomly rotate when not in use
-var rotateState = true; //boolean that is either true or false
-var Rate = 0.00006; //Rate of spinning
-var t0 = Date.now();
-var BaseMat = [[2.0,0.567],[0.0,0.5]];
-d3.timer(function() {
-	if(rotateState){
-	  var delt= (Date.now() - t0) * Rate;
-	var RotMat = [[Math.cos(delt),Math.sin(delt)],[-Math.sin(delt),Math.cos(delt)]];	
-		switchto(multMat(RotMat,BaseMat));
-	}
+// Draw data from a file, perform our operation
+d3.csv("data/known_dims.csv", function(data){
+    //code dealing with data here
+	plot_these_points(data,"known");
+	type_list.push("known");
 });
 
 
-
 //Transition a change of radius
-function changeradius(newradius){
-	//perform transition on each lattice point
-	d3.selectAll('circle.Lpoint').each(function(d,i){
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',newradius);
-	});
-}
+//function changeradius(newradius){
+//	//perform transition on each lattice point
+//	d3.selectAll('circle.Lpoint').each(function(d,i){
+//		d3.select(this)
+//		.transition().duration(transitDuration)
+//			.attr('r',newradius);
+//	});
+//}
 
 //Transition a change of color
-function changecolor(newcolor){
-	//perform transition on each lattice point
-	d3.selectAll('circle.Lpoint').each(function(d,i){
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('fill',newcolor);
-	});
-}
+//function changecolor(newcolor){
+//	//perform transition on each lattice point
+//	d3.selectAll('circle.Lpoint').each(function(d,i){
+//		d3.select(this)
+//		.transition().duration(transitDuration)
+//			.attr('fill',newcolor);
+//	});
+//}
 
 
 //Interpolate translate of non-svg elements can be done through this function
@@ -261,12 +282,15 @@ function changecolor(newcolor){
 function moveText(Tname,xnew,ynew)
 {
 			var startTransform = d3.selectAll(Tname).attr('transform');
-			var endTransform = " translate(" + xnew+ " ,"+ynew+")";
+			var endTransform = " translate(" + xnew+ ","+ynew+")";
 			var translateInterpolator = d3.interpolateString(startTransform, endTransform);
 			d3.selectAll(Tname)
 				.transition().duration(transitDuration)
 				.attrTween('transform' , function(d){ return translateInterpolator });
+			console.log("While moving text");
+			console.log(startTransform);
 }
+
 function changeOpacity(Tname,onew)
 {
 			d3.selectAll(Tname)
@@ -275,217 +299,167 @@ function changeOpacity(Tname,onew)
 }
 
 
-//Unfortunately, applying any of the two function simultaneously does not make it work so nicely. 
-//So here's a function that changes color radius and transitions to a new lattice
-function changelattice(A,newcolor,newradius){
-	//perform rotation on each lattice point
-	d3.selectAll('circle.Lpoint').each(function(d,i){
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-	//	console.log(Bcoord);
-		var newcoord = multiply(A,Bcoord);
-		d3.select(this)
-     			.transition().duration(transitDuration)
-				.attr('cx',x(newcoord[0]))
-				.attr('cy',y(newcoord[1]))
-				.attr('fill',newcolor)
-				.attr('r',newradius);
-		
-	});
+//Just linear scaling on x and y
+// default is when C_1 = 0.1, C_2 = 0.001
+function map_linear(C_1,C_2,d){
+	var a1 = d[0]*C_1;
+	var a2 = d[1]*C_2;
+	return [a1,a2];
 }
 
-//Initializing everything like how it was left in the previous slide
-rotateState = false;
-BaseMat=[[1.0,0.5],[0.0,1.0]];
-changelattice([[1.0,0.5],[0.0,1.0]],color2,cRadius2); 
-d3.selectAll('line.minvector')
-	.transition().duration(transitDuration)
-	.attr('x2',x(1));
+function map_linear1(d){
+	return map_linear(0.1,0.001,d);
+}
 
-var firstQue = 3;
-const theta = 0.9306048591020996;
+//y-axis is constant multiple of x-axis and x is logarithmic
+function map_logx_rely(C,d){
+	var a1 = Math.log(d[0])*C
+	var a2 = d[1]/d[0]
+	return [a1,a2];
+}
+
+//logarithmic scaling wrt constant C
+function map_logx(C,d){
+	var a1 = Math.log(d[0])*C
+	var a2 = d[1]
+	return [a1,a2];
+}
+
+// Change scaling with respect to a scale function for all points of a given type
+// A scale function must take input as a 2d vector and output a 2d vector
+function transto(scalfunc){
+
+
+	// Adjust marker labels and text
+  	d3.selectAll("line.xmark").each(function(d,i){
+  		//This number is obtained as a string intitially
+  		var Bcoordstr = d3.select(this)
+  				.attr('data')
+  					.split(',') ;
+  		//so now we store it as an array of numbers
+  		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
+  		var newcoord = scalfunc(Bcoord);
+  		d3.select(this)
+       			.transition().duration(transitDuration)
+  				.attr('x1',x(newcoord[0]))
+  				.attr('y1',y(0))
+  				.attr('x2',x(newcoord[0]))
+  				.attr('y2',y(newcoord[1]));
+  	});
+  	
+  	// then label text should be moved
+  	d3.selectAll("g."+type+"_text").each(function(d,i){
+  		//This number is obtained as a string intitially
+  		var Bcoordstr = d3.select(this)
+  				.attr('data')
+  					.split(',') ;
+  		//so now we store it as an array of numbers
+  		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
+  		var newcoord = scalfunc(Bcoord);
+		// this idea has been picked from
+		// https://stackoverflow.com/questions/24030267/d3-transition-for-transform-translate-not-working-for-div#25247387
+		var startTransform = d3.select(this).attr('transform');
+		var endTransform = " translate(" + x(newcoord[0])+ ","+y(-0.03)+")";
+		var translateInterpolator = d3.interpolateString(startTransform, endTransform);
+		d3.select(this)
+			.transition().duration(transitDuration)
+			.attrTween('transform' , function(d){ return translateInterpolator });
+  	});
+
+
+
+	// change each data type point for each type in type_list
+	type_list.forEach( type =>
+	{
+  	//perform transformation to each point, indicator line, and label text
+  	//first points
+
+  	d3.selectAll("circle."+type).each(function(d,i){
+  		//This number is obtained as a string intitially
+  		var Bcoordstr = d3.select(this)
+  				.attr('data')
+  					.split(',') ;
+  		//so now we store it as an array of numbers
+  		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
+  		var newcoord = scalfunc(Bcoord);
+  		d3.select(this)
+       			.transition().duration(transitDuration)
+  				.attr('cx',x(newcoord[0]))
+  				.attr('cy',y(newcoord[1]));
+  	});
+  	
+  	// then indicator lines
+  	d3.selectAll("line."+type).each(function(d,i){
+  		//This number is obtained as a string intitially
+  		var Bcoordstr = d3.select(this)
+  				.attr('data')
+  					.split(',') ;
+  		//so now we store it as an array of numbers
+  		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
+  		var newcoord = scalfunc(Bcoord);
+  		d3.select(this)
+       			.transition().duration(transitDuration)
+  				.attr('x1',x(newcoord[0]))
+  				.attr('y1',y(0))
+  				.attr('x2',x(newcoord[0]))
+  				.attr('y2',y(newcoord[1]));
+  	});
+  	
+  	// then label text should be moved
+  	d3.selectAll("g."+type+"_text").each(function(d,i){
+  		//This number is obtained as a string intitially
+  		var Bcoordstr = d3.select(this)
+  				.attr('data')
+  					.split(',') ;
+  		//so now we store it as an array of numbers
+  		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
+  		var newcoord = scalfunc(Bcoord);
+		// this idea has been picked from
+		// https://stackoverflow.com/questions/24030267/d3-transition-for-transform-translate-not-working-for-div#25247387
+		var startTransform = d3.select(this).attr('transform');
+		var endTransform = " translate(" + x(newcoord[0])+ ","+y(-0.03)+")";
+		var translateInterpolator = d3.interpolateString(startTransform, endTransform);
+		d3.select(this)
+			.transition().duration(transitDuration)
+			.attrTween('transform' , function(d){ return translateInterpolator });
+  	});
+
+  	}
+  	);
+
+}
+
+
+//Initializing everything 
+
 
 var _transitions = [
-
-        {
+	{
+		//empty transition
 		transitionForward: () => {
-			//Increase the radius of all center circle and decrease everything else
-	//perform transition on each lattice point
-			var newradius = x(1) -x(0);
-	d3.selectAll('circle.Lpoint').each(function(d,i)
-		{
-
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-			
-
-if(Bcoord[0] == 0 && Bcoord[1]==0)
-{
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',newradius)
-			.attr('fill',color4);
-			}
-else
-{
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',cRadius)
-			.attr('fill',color1);
-}
-	});
+			transto(d => map_linear(0.1,0.0001,d));
 		},
-		transitionBackward: () => {
-//Just copying the above code with a few changes
-	d3.selectAll('circle.Lpoint').each(function(d,i)
-		{
-
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-
-
-if(Bcoord[0] == 0 && Bcoord[1]==0)
-{
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',cRadius2)
-			.attr('fill',color2);
-			}
-else
-{
-
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',cRadius2)
-			.attr('fill',color2);
-}
-	});
-		},
-		  index: firstQue
-        },
-
-
-        {
+		transitionBackward:() => {
+			transto(d => map_linear(0.6,0.015,d));
+		}
+	},
+	{
+		//empty transition
 		transitionForward: () => {
-			//reveal the minimal distance arrow
-
-			transto(multMat([[1/theta,0],[0,theta]],BaseMat))
+			console.log("Fifth and empty");
 		},
-		transitionBackward: () => {
-			transto(BaseMat);
-		},
-		  index: firstQue+1
-        },
-
-        {
+		transitionBackward:() => {
+		}
+	},
+	{
+		//empty transition
 		transitionForward: () => {
-			//Increase the radius of all center circle and decrease everything else
-	//perform transition on each lattice point
-			var newradius = x(1) -x(0);
-	d3.selectAll('circle.Lpoint').each(function(d,i)
-		{
-
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-
-
-if(Bcoord[0] == 0 && Bcoord[1]==0)
-{
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',(x(1)-x(0))*(1/theta))
-			.attr('fill',color4);
-			}
-	});
+			console.log("Fifth and empty");
 		},
-		transitionBackward: () => {
-//Just copying the above code with a few changes
-	d3.selectAll('circle.Lpoint').each(function(d,i)
-		{
-
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-
-
-if(Bcoord[0] == 0 && Bcoord[1]==0)
-{
-		var newradius = x(1) -x(0);
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',newradius);
-			}
-	});
-		},
-		  index: firstQue+2
-        },
-
-        {
-		transitionForward: () => {
-			changelattice(multMat([[1/theta,0],[0,theta]],BaseMat), color2, (x(0.5)-x(0))*(1/theta));
-			d3.selectAll('line.minvector').
-				attr('opacity',0);
-		},
-		transitionBackward: () => {
-			//gonna have to write a long code to go back to the previous state
-			d3.selectAll('line.minvector').
-				attr('opacity',1);
-			//Increase the radius of all center circle and decrease everything else
-	//perform transition on each lattice point
-			var newradius = x(1) -x(0);
-	d3.selectAll('circle.Lpoint').each(function(d,i)
-		{
-
-		//This number is obtained as a string intitially
-		var Bcoordstr = d3.select(this)
-				.attr('Lcoord')
-					.split(',') ;
-		//so now we store it as an array of numbers
-		var Bcoord = [+Bcoordstr[0],+Bcoordstr[1]];
-			
-
-if(Bcoord[0] == 0 && Bcoord[1]==0)
-{
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',(x(1)-x(0))/theta)
-			.attr('fill',color4);
-			}
-else
-{
-
-		d3.select(this)
-		.transition().duration(transitDuration)
-			.attr('r',cRadius)
-			.attr('fill',color1);
-}
-	});
-
-
-		},
-		  index: firstQue+3
-        }
-
-    ];
+		transitionBackward:() => {
+		}
+	}
+];
 
 
 //mathjax is stupid and it won't automatically parse the SVG file
@@ -516,9 +490,5 @@ setTimeout(() => {
   MathJax.Hub.Queue(["Typeset", MathJax.Hub, oursvg.node()]);
   
 }, 1);
-
-
-
-
 
 </script>

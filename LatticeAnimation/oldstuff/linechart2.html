@@ -57,8 +57,6 @@ var y = d3.scaleLinear()
 
 const plotour =  (darray,type) => {
 
-
-
 insvg.append('text')
   .text("Rate of the code")
  .attr('text-anchor', 'middle')
@@ -116,13 +114,12 @@ insvg.selectAll('rect')
 		.attr('opacity',1);
 
 
-
 };
 
 
 
 // Draw data from linear file, perform our operation
-d3.csv('linearandcyclic2.csv').then(darray => {
+d3.csv('linear.csv').then(darray => {
 	console.log(darray);
 	plotour(darray,"type");
 }
