@@ -458,6 +458,13 @@
 						<p class="fragment fade-in-then-semi-out">
 						<b>Another conclusion</b>: $c_d \ge 2$ for all dimensions $d$!
 						</p>
+						<p class="fragment fade-in-then-semi-out">
+						Both Venkatesh and the new result use this idea. What we want is to find expectation of the lattice sum over a smaller subset of lattices that have a larger group of symmetries.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						For Venkaesh, the group of symmetries is always a cyclic group.
+						For the new result, the symmetries are non-commutative.
+						</p>
 					</section>
 
 				</section>
@@ -684,14 +691,15 @@
 					<!-- 	</p> -->
 
 						<p class="fragment fade-in-then-semi-out">
-						Define now the set $Y_d$ as
-						$$Y_d = \left\{ \left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right]  \mathcal{O}_K^2 \ | \ a,b,c,d \in K\otimes \R , ad-bc =1_{K_{\R}} \right\}.$$
+						Define the set $Y_d$ as
+						$$Y_d = \left\{ \left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right]  \mathcal{O}_K^2 \ | \ a,b,c,d \in  K_{\R} = K\otimes \R , ad-bc =1_{K_{\R}} \right\}.$$
 						</p>
 
 						<p class="fragment fade-in-then-semi-out">
 						In conventional notation, this is just
 						$$Y_d = \{ g (  \mathcal{O}_K^{\oplus 2} ) \ | \  g \in SL_2(K_{\R}) \} \simeq  SL_2(K_\mathbb{R} ) /SL_2(\mathcal{O}_K). $$
 						</p>
+
 					<!-- 	<p class="fragment fade-in-then-semi-out"> -->
 <!-- Again, with this bijection, we will make $Y_d$ a topological space. But does there exists a probability measure on $Y_d$? -->
 					<!-- 	</p> -->
@@ -713,6 +721,7 @@
 					<!-- 	</div> -->
 					<!-- </section> -->
 					<!-- <section> -->
+
 						<p class="fragment fade-in-then-semi-out">
 						$Y_d$ can be give probability measure.
 						But why make such a $Y_d$?
@@ -723,7 +732,9 @@
 						$$ \left[ \begin{matrix} a & b \\ c & d \end{matrix}\right]\left[ \begin{matrix} \mu_n & 0 \\ 0 & \mu_n \end{matrix}\right]=\left[ \begin{matrix} \mu_n & 0 \\ 0 & \mu_n \end{matrix}\right]\left[ \begin{matrix} a & b \\ c & d \end{matrix}\right]$$
 						</p>
 					  </section>
+
 					  <section>
+
 						<p class="fragment fade-in-then-semi-out">
 						And if $x,y \in \mathcal{O}_K$ and if $r \notin n \Z$, we have that 
 						$$ \left[ \begin{matrix} \mu_n^r & 0 \\ 0 & \mu_n^r \end{matrix}\right]\left[ \begin{matrix} x  \\ y \end{matrix}\right]=\left[ \begin{matrix} x  \\ y \end{matrix}\right] \Rightarrow x=y=0.$$
@@ -836,16 +847,6 @@ Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-
 						</div>
 					</section>
 					<section>
-
-						<div class="fragment fade-in" style="float: center;  text-align: center">
-							<img src="images/amitsur.png"  height= "280" >
-						</div>
-						<div class="fragment fade-in" style="float: center;  text-align: center">
-							<img src="images/terse1.png"  height= "220" >
-							<img src="images/terse2.png"  height= "220" >
-						</div>
-					</section>
-					<section>
 						<p class="fragment fade-in-then-semi-out">
 						The following sequence of lower bounds can be constructed purely from the new points. The merit is that these sequences produce lattices with non-commutative symmetries.
 						</p>
@@ -856,7 +857,7 @@ Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-
 						<p class="fragment fade-in-then-semi-out">
 						Suppose $q= 1+\prod_{i=1}^{N}p_{i} $ is a prime for some $N$. These number can be used to show
 						$$  c_{2 (q-1)^{2}\varphi(q-1) } \ge q(q-1)^{2}.$$
-						If there are infinitely many such primes, then 
+						If there are infinitely many such primes, then this sequence asymptotically approaches $O(d\log \log d)$.
 						</p>
 					</section>
 					<!-- 	<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   "> -->
@@ -910,6 +911,17 @@ Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-
 							<span style="font-family: 'Courier New';"> 
 							nihargargava.com/divalg_seminar
 							</span>
+							<br>
+							<br>
+							<b>How does it work?: </b>
+							<br>
+							This presentation and all the animations are written in 
+							<span style="font-family: 'Courier New';"> 
+							html</span> and
+							<span style="font-family: 'Courier New';"> 
+							javascript</span>
+							using <a href="https://revealjs.com">reveal.js</a> and
+							<a href="https://d3js.org">d3.js</a>.
 							<br>
 							<br>
 							Feel free to contact for questions/comments.
