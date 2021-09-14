@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>YRANT seminar</title>
+		<title>PointDist seminar</title>
 
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css" id="theme">
@@ -36,35 +36,35 @@
 					<br>
 
 				</section>
-				<!-- <section style="text-align: left;"> -->
-				<!-- 	<h2> -->
-				<!-- 		Introduction -->
-				<!-- 	</h2> -->
-				<!-- 	<section> -->
+				<section style="text-align: left;">
+					<h2>
+						Introduction
+					</h2>
+					<section>
 
-				<!-- 		<p class="fragment fade-in-then-semi-out"> -->
+						<p class="fragment fade-in-then-semi-out">
+						\(\DeclareMathOperator{\R}{\mathbb{R}}\)\(\DeclareMathOperator{\Z}{\mathbb{Z}}\)\(\DeclareMathOperator{\C}{\mathbb{C}}\)\( \DeclareMathOperator{\F}{\mathbb{F}}\)
+						Suppose we have $\{a_1, a_2, ... , a_n \} \in m \Z$ with $a_i \ge 0 $ and suppose that $$\frac{1}{n}\sum_{i=1}^{n} a_i < m.$$
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						What can we conclude about the numbers $a_i$? 
+						</p>
+						<p class="fragment fade-in-then-semi-out"><b>Answer</b>: At least one of them is $0$.
+						</p>
+						<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   ">
+							<h4 style="display: inline-block;" > Lemma  </h4> <i> (Integrality gap)</i> 
+							<br>
+							Let $X$ be a probability space and $\Phi: X\to \R^{\ge 0}$ be a random variable that takes values only in $m \Z$ for some integer $m$. 
+							<br>
+							If $\int_X \Phi < m$, then there exists some $x \in X$ such that $\Phi(x) = 0$.
 
-				<!-- 		Suppose we have $\{a_1, a_2, ... , a_n \} \in m \Z$ with $a_i \ge 0 $ and suppose that $$\frac{1}{n}\sum_{i=1}^{n} a_i < m.$$ -->
-				<!-- 		</p> -->
-				<!-- 		<p class="fragment fade-in-then-semi-out"> -->
-				<!-- 		What can we conclude about the numbers $a_i$? --> 
-				<!-- 		</p> -->
-				<!-- 		<p class="fragment fade-in-then-semi-out"><b>Answer</b>: At least one of them is $0$. -->
-				<!-- 		</p> -->
-				<!-- 		<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   "> -->
-				<!-- 			<h4 style="display: inline-block;" > Lemma  </h4> <i> (Integrality gap)</i> --> 
-				<!-- 			<br> -->
-				<!-- 			Let $X$ be a probability space and $\Phi: X\to \R^{\ge 0}$ be a random variable that takes values only in $m \Z$ for some integer $m$. --> 
-				<!-- 			<br> -->
-				<!-- 			If $\int_X \Phi < m$, then there exists some $x \in X$ such that $\Phi(x) = 0$. -->
+						</div>
+						<p class="fragment fade-in-then-semi-out">
+						For our application, we will set $X$ to be a set of lattices.
+						</p>
+					</section>
 
-				<!-- 		</div> -->
-				<!-- 		<p class="fragment fade-in-then-semi-out"> -->
-				<!-- 		For our application, we will set $X$ to be a set of lattices. -->
-				<!-- 		</p> -->
-				<!-- 	</section> -->
-
-				<!-- </section> -->
+				</section>
 				<section style="text-align: left;">
 					<h2>
 						What is a lattice packing?
@@ -72,7 +72,7 @@
 					<section>
 						<div style="float: left;  width:50%;">
 							<p class="fragment fade-in-then-semi-out">
-						\(\DeclareMathOperator{\R}{\mathbb{R}}\)\(\DeclareMathOperator{\Z}{\mathbb{Z}}\)\(\DeclareMathOperator{\C}{\mathbb{C}}\)\( \DeclareMathOperator{\F}{\mathbb{F}}\)Consider $\R^d$ with the standard inner product. A lattice $\Lambda\subseteq \R^d$ is a discrete subgroup such that the quotient space $\R^d / \Lambda$ has a finite induced volume.
+						Consider $\R^d$ with the standard inner product. A lattice $\Lambda\subseteq \R^d$ is a discrete subgroup such that the quotient space $\R^d / \Lambda$ has a finite induced volume.
 							</p>
 							<p class="fragment fade-in-then-semi-out">
 							Given a lattice $\Lambda$, choose $r > 0$ and consider the open balls $\{ B_{r}\left( v \right)\}_{v \in \Lambda}$ such for any $v_1, v_2 \in \Lambda$, $B_{r}(v_1) \cap B_{r}(v_2) \neq \emptyset \Rightarrow v_1 = v_2$.
@@ -330,7 +330,8 @@
 					</h2>
 					<section>
 						<p class="fragment fade-in-then-semi-out">
-						To show $c_d \ge K$, we must prove the existence of $g \in SL_d(\R)$ such that the origin centered ball $B$ with $\mu(B) = K$ has $g \Z^d \cap B = \{0\} $
+						Recall: <br>
+						To show $c_d \ge M$, we must prove the existence of $g \in SL_d(\R)$ such that the origin centered ball $B$ with $\mu(B) = M$ has $g \Z^d \cap B = \{0\} $
 						</p>
 						<p class="fragment fade-in-then-semi-out">
 						This is an optimization problem on the space
@@ -459,11 +460,12 @@
 						<b>Another conclusion</b>: $c_d \ge 2$ for all dimensions $d$!
 						</p>
 						<p class="fragment fade-in-then-semi-out">
-						Both Venkatesh and the new result use this idea. What we want is to find expectation of the lattice sum over a smaller subset of lattices that have a larger group of symmetries.
+						Here we used a symmetry of $\{\pm 1\}$ under which the ball and the lattice are invariant.
+						Both Venkatesh and the new result use this idea. 
 						</p>
 						<p class="fragment fade-in-then-semi-out">
-						For Venkaesh, the group of symmetries is always a cyclic group.
-						For the new result, the symmetries are non-commutative.
+						Venkatesh's approach was to work with larger a larger group, namely $\Z/n\Z$. 
+						For the new result, the symmetries are even bigger and non-commutative.
 						</p>
 					</section>
 
@@ -700,13 +702,17 @@
 						$$Y_d = \{ g (  \mathcal{O}_K^{\oplus 2} ) \ | \  g \in SL_2(K_{\R}) \} \simeq  SL_2(K_\mathbb{R} ) /SL_2(\mathcal{O}_K). $$
 						</p>
 
-					<!-- 	<p class="fragment fade-in-then-semi-out"> -->
-<!-- Again, with this bijection, we will make $Y_d$ a topological space. But does there exists a probability measure on $Y_d$? -->
-					<!-- 	</p> -->
-
-
 					<!-- </section> -->
 					<!-- <section> -->
+
+						<p class="fragment fade-in-then-semi-out">
+Again, with this bijection, we will make $Y_d$ a topological space. 
+
+With a bit of work, we can also show that $Y_d$ has a finite measure with respect to the natural left $SL_2(K_{\R})$-invariant measure.
+						</p>
+					</section>
+					<section>
+
 					<!-- 	<p class="fragment fade-in-then-semi-out"> -->
 					<!-- 	Fortunately, the following theorem exists. -->
 					<!-- 	</p> -->
@@ -731,9 +737,9 @@
 						Note that whenever $a,b,c,d \in {K}_{\R}$, we have that 
 						$$ \left[ \begin{matrix} a & b \\ c & d \end{matrix}\right]\left[ \begin{matrix} \mu_n & 0 \\ 0 & \mu_n \end{matrix}\right]=\left[ \begin{matrix} \mu_n & 0 \\ 0 & \mu_n \end{matrix}\right]\left[ \begin{matrix} a & b \\ c & d \end{matrix}\right]$$
 						</p>
-					  </section>
+					  <!-- </section> -->
 
-					  <section>
+					  <!-- <section> -->
 
 						<p class="fragment fade-in-then-semi-out">
 						And if $x,y \in \mathcal{O}_K$ and if $r \notin n \Z$, we have that 
@@ -751,13 +757,13 @@
 					</section>
 					<section>
 						<p class="fragment fade-in-then-semi-out">
-						Venkatesh, then proves the following analogue of Siegel's theorem.
+						Venkatesh proves the following analogue of Siegel's theorem.
 
 						</p>
 						<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   ">
 							<h4 style="display: inline-block;" > Theorem  </h4> <i> (Venkatesh 2013)</i> 
 							<br>
-Let $d = 2\varphi(n)$
+Let $d = 2\varphi(n)$.
 							Suppose $f:K_{\mathbb{R}}^2 \rightarrow \mathbb{R}$ is a compactly supported bounded measurable function. Then, the following holds.
 							\begin{align}
 							\int_{Y_d} \Phi_f = \int_{SL_2(K_\mathbb{R})/SL_2(\mathcal{O}_K)}^{} \left( \sum_{v \in g \mathcal{O}_K^{\oplus 2} \setminus \{ 0\}}^{}f(v) \right) dg = \int_{\mathbb{R}^{d}}^{} f(x) dx,
@@ -766,7 +772,8 @@ Let $d = 2\varphi(n)$
 						</div>
 
 						<p class="fragment fade-in-then-semi-out">
-						<b>Conclusion</b>: By setting $f$ as the indicator function of a ball in a suitable quadratic form, we conclude that  there exists some lattice $\Lambda \in Y_d$ such that $\Phi_f(\Lambda) = 0$. That is, there is some lattice of unit covolume that intersects trivially with an origin centered ball of volume $ n - \varepsilon$.
+						<b>Conclusion</b>: 
+						By setting $f$ as the indicator function of a ball in a suitable quadratic form, we conclude that  there exists some lattice $\Lambda \in Y_d$ such that $\Phi_f(\Lambda) = 0$. That is, there is some lattice of unit covolume that intersects trivially with an origin centered ball of volume $ n - \varepsilon$.
 						</p>
 						<p class="fragment fade-in-then-semi-out">
 						<b>Another conclusion</b>: $c_{2 \varphi(n)} \ge n$ for all $n$!
@@ -775,12 +782,12 @@ Let $d = 2\varphi(n)$
 				</section>
 				<section style="text-align: left;">
 					<h2>
-					   	Towards division algebra
+					   	Using division algebras
 					</h2>
 
 					<section>
 						<p class="fragment fade-in-then-semi-out">
-						The division algebra case is also very similar. 
+						The division algebra case is on similar lines.
 						Let $D$ be a finite-dimensional division algebra over $\mathbb{Q}$. Let $\mathcal{O} \subseteq D$ be an order in $D$. We work in $d = 2 \dim_{\mathbb{Q}} D$ dimensions. Define $D_{\R}= D \otimes_\mathbb{Q} \R$.
 						$$Y_d = \{ g (  \mathcal{O}^{\oplus 2} ) \ | \  g \in SL_2(D_{\R}) \} \simeq  SL_2(D_\mathbb{R} ) /SL_2(\mathcal{O}). $$
 						<br>
@@ -816,7 +823,12 @@ Let $d = 2\varphi(n)$.
 
 
 						<p class="fragment fade-in-then-semi-out">
-						To get packing bounds, fix a finite subgroup $G_0 \subseteq \mathcal{O}^*$ to act diagonally on the right of $\mathcal{O}^{\oplus 2}$. We get the bounds
+						To get packing bounds, fix a finite subgroup $G_0 \subseteq \mathcal{O}^*$ to act diagonally on the right of $\mathcal{O}^{\oplus 2}$. Choose $f$ to be the indicator function of a ball invariant under the right action of $G_0$. Then $\Phi_f(\Lambda) \in \{0, |G_0|, 2|G_0|, \dots\}$ for all $\Lambda \in Y_d$.
+						</p>
+						
+						<p class="fragment fade-in-then-semi-out">
+						<b>Conclusion</b>: 
+						We get the bounds
 						$$c_{2 \dim_{\mathbb{Q}} D} \ge \# G_0.$$
 						</p>
 
@@ -833,8 +845,16 @@ When $D$ is a $\mathbb{Q}$-division algebra, the $\mathbb{Q}$-span of $G_{0}$ in
 Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-span of $G_{0}$, then we get that $(G_{0},\mathbb{Z}\langle G_{0}\rangle ,\mathbb{Q}\langle G_{0}\rangle )$ is another tuple that gives us a lower bound.
 						</p>
 						<p class="fragment fade-in-then-semi-out">
-						So we only need to find finite subgroups that live in $\mathbb{Q}$-division algebras. Fortunately, there exists a complete classification of such finite subgroups due to Amitsur, 1955.
+						So we only need to find finite subgroups $G_0$ that live in some $\mathbb{Q}$-division algebra $D$ and we can get the rest. 
+						
 						</p>
+						<p class="fragment fade-in-then-semi-out">
+						Fortunately, there exists a complete classification of such finite subgroups due to Amitsur, 1955.
+
+						</p>
+						<div class="fragment fade-in" style="float: center;  text-align: center">
+							<img src="images/amitsur.jpeg"  height= "180" >
+						</div>
 					</section>
 					<section>
 
@@ -846,13 +866,211 @@ Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-
 							<img src="images/terse2.png"  height= "220" >
 						</div>
 					</section>
+
+				</section>
+				<section style="text-align: left;">
+					<h2>
+						Summary of Amitsur's result
+					</h2>
 					<section>
 						<p class="fragment fade-in-then-semi-out">
-						The following sequence of lower bounds can be constructed purely from the new points. The merit is that these sequences produce lattices with non-commutative symmetries.
+						The following construction $D=(E/F,\sigma,\gamma)$ is called a <b>cyclic division algebra</b>.
+						</p>
+
+						<ul class="fragment fade-in-then-semi-out">
+							<li>
+$\DeclareMathOperator{\Gal}{Gal}$
+$\DeclareMathOperator{\N}{N}$
+								$F$ is a number field over $\mathbb{Q}$, </li>
+							<li> $E/F$ is a cyclic extension of degree $n$, i.e. the field extension $E/F$ is Galois and the Galois group is cyclic, </li>
+							<li> $\sigma$ is a generator of the cyclic group $\Gal(E/F)$ and </li>
+							<li> $\gamma \in F^{*}$, with the property that the multiplicative order of $\gamma$ in the group $K^{*}/ N_{F}^{E}(E^{*})$ is exactly $n$. That is, $\gamma^{k} \notin N_{F}^{E}(E^{*})$ for any $k \in \{ 1,2,\dots,n-1\}$ and $\gamma^{n} = N_{F}^{E}(x)$ for some $x\in E^{*}$.
+								<br>When this happens we say that $\gamma \in F^{*}$ is a non-norm element. </li>
+						</ul>
+
+
+						<p class="fragment fade-in-then-semi-out">
+				  Consider a formal element $b$ that does not commute with $E$ and satisfies $b^{n} = \gamma$. $D$ is now defined as per the isomorphism
+				  \begin{align} \label{eq:iDentify} D \simeq E \oplus E b \oplus E b^{2} \oplus \dots \oplus E b^{n-1},\end{align}
+				  with the rule that 
+				  \begin{align}
+				    bl =  \sigma(l)b \text{ for all }l \in E.\label{eq:ruleofD}
+				  \end{align} 
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						If $\gamma$ does not satisfy the non-norm condition, then we call $(E/F,\sigma,\gamma)$ just a cyclic algebra.
+						</p>
+
+					</section>
+
+					<section>
+						<p class="fragment fade-in-then-semi-out">
+						All division algebras over $\mathbb{Q}$ are cyclic division algebras!
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						The dimension of $D=(E/F,\sigma,\gamma)$ over $\mathbb{Q}$ is $\dim_{\mathbb{Q}}D = [F:\mathbb{Q}]n^2 = [E:\mathbb{Q}]n$.
+						</p>
+
+						<p class="fragment fade-in-then-semi-out">
+						For $1 \le r \le m $ and $(m,r)=1$, consider the integers
+						</p>
+
+ 					<ul class="fragment fade-in-then-semi-out">
+	<li>$\DeclareMathOperator{\ord}{ord} n = \ord_{m} r$ is the multiplicative order or $r$ modulo $m$, that is the smallest postive integer $k$ such that $m  \mid r^{k}-1$,</li>
+   <li> $s = \gcd(r-1,m)$, </li>
+   <li> $t = m/s$. </li>
+						</ul>
+
+
+						<p class="fragment fade-in-then-semi-out">
+   When $r=1$, we will assume $n=s=1$. In these definitions, we will think of $m$ and $r$ as two parameters and $n,s,t$ will automatically be set as defined above.
+						</p>
+
+						<p class="fragment fade-in-then-semi-out">
+   With this, consider the cyclic algebra $\mathfrak{U}_{m,r} = (\mathbb{Q}(\mu_{m}), F , \sigma_{r}, \mu_{m}^{t} )$, where $F$ is the subfield of $\mathbb{Q}(\mu_{m})$ fixed by $\sigma_{r}$, and $\sigma_{r}$ is the field automorphism of $\mathbb{Q}(\mu_{m})$ given by $\mu_{m} \mapsto \mu_{m}^{r}$. 
+						</p>
+
+						<p class="fragment fade-in-then-semi-out">
+   A priori, $\mathfrak{U}_{m,r}$ is just a $\mathbb{Q}$-algebra which may not be a division algebra. For this to be a division algebra, we want that $\mu_{m}^{t}$ is a non-norm element of $F$. 
+						</p>
+					</section>
+
+
+					<section>
+
+
+						<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   ">
+							<h4 style="display: inline-block;" > Theorem  </h4> <i> (Amitsur, 1955)</i> 
+							<br>
+     Consider the following conditions on the numbers $m,r,n,s,t$ defined above. Then $\mathfrak{U}_{m,r}$ is a division algebra if and only if both of the following hold.
+     <ul>
+	     <li>
+		     One of the following two conditions hold.
+		     <ul>
+			     <li>
+				     $\gcd(n,t) = 1$. This implies that $\gcd(s,t) = 1$.
+			     </li>
+			     <li>
+				     $n=2n', m=2^{\alpha} m',s=2s'$, for some $\alpha \ge 2$ and $m',s',n'$ are odd numbers, such that $\gcd(n,t)=\gcd(s,t)=2$ and $ 2 ^{\alpha} \mid (r + 1) $. 
+			     </li>
+		     </ul>
+	     </li>
+	     <li>
+		     One of the following two conditions hold.
+		     <ul>
+			     <li>
+				     $n=s=2$ and $ m \mid (r +1)$.
+			     </li>
+			     <li>
+				     For every prime $ q \mid n$ there exists a prime $p \mid m$ such that if $m = p^{\alpha} m'$ with $p \nmid m'$, we get $q \nmid \ord_{m'} r $. In addition, at least one of the following must hold regarding $p,q$.
+			     </li>
+			     <ul>
+				     <li>
+					     $p \neq 2$ and $\gcd(q,\frac{ p^{ \delta} - 1}{s} ) = 1$, where $\delta = \ord_{m'} p$.
+				     </li>
+				     <li>
+					     $p=q=2$ and $m/4 \equiv \delta \equiv 1 \pmod{2}$, where $\delta$ is as above. 
+				     </li>
+			     </ul>
+		     </ul>
+	     </li>
+						</div>
+					</section>
+
+
+					<section>
+						<p class="fragment fade-in-then-semi-out">
+						The division algebra $\mathfrak{U}_{m,r}$ contains the following group.
+						</p>
+
+						<p class="fragment fade-in-then-semi-out">
+   \begin{align}
+   G_{m,r}:= \langle A,B \ | \ A^{m} = 1, B^{n} = A^{t}, BAB^{-1} = A^{r}\rangle.
+   \end{align}
+   We get that $|G_{m,r}|= mn = m \ord_{m}r$. When $r=1$, $G_{m,r}$ is a cyclic group of order $m$.
+						</p>
+
+						<p class="fragment fade-in-then-semi-out">
+   It embeds as per $i:G_{m,r} \rightarrow \mathfrak{U}_{m,r}^{*}$ defined sending $A \mapsto \mu_{m}$ and $B \mapsto b$.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						When $\ord_m 2$ is odd, one can get a slightly better group of size $24 |G_{m,r}|$ embedded in the division algebra $\left(\tfrac{-1,-1}{\mathbb{Q}}\right) \otimes_{\mathbb{Q}} \mathfrak{U}_{m,r}$.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						Amitsur then proves that apart from two more sporadic examples, these two are the only families of examples.
+						</p>
+					</section>
+					<section>
+
+
+						<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   ">
+							<h4 style="display: inline-block;" > Theorem  </h4> <i> (Amitsur, 1955)</i> 
+							<br>
+The following is an exhaustive list of finite groups <span class="math inline">\(G_{0}\)</span> that can be embedded in some <span class="math inline">\(\mathbb{Q}\)</span>-division algebra <span class="math inline">\(D\)</span>.
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Group structure</strong></td>
+<td style="text-align: left;"><strong>Conditions on the parameters</strong></td>
+<td style="text-align: left;"><strong>Size of the group</strong></td>
+<td style="text-align: left;"><strong>Dimension of the smallest division algebra containing the group</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(G_{0} \subseteq D^{*}\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="math inline">\(\#G_{0}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\dim_{\mathbb{Q}} \mathbb{Q}\langle G_{0}\rangle\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathfrak{D}^{*}\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="math inline">\(48\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(16\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathfrak{I}^{*}\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="math inline">\(120\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(20\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(G_{m,r}\)</span></td>
+<td style="text-align: left;">
+	<span class="math inline">\( (m,r) = 1, \)</span> 
+	<span class="math inline">\( \mathfrak{U}_{m,r}\)</span> is a division algebra
+<td style="text-align: left;"><span class="math inline">\(m\ord_{m} r\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\varphi(m) \ord_{m} r\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathfrak{T}^{*} \times G_{m,r}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\ord_{m} 2\)</span> is odd
+and the rest as above
+</td> 
+<td style="text-align: left;"><span class="math inline">24 \(m\ord_{m} r\)</span></td>
+<td style="text-align: left;"><span class="math inline">4 \(\varphi(m) \ord_{m} r\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="math inline">\(\mathfrak{T}^{*}, \mathfrak{D}^{*}, \mathfrak{I}^{*}\)</span> are the binary tetrahedral group, binary octahedral group and binary icosahedral group respectively. They are finite groups whose respective size is 24,48 and 120.</p>
+
+
+						</div>
+					</section>
+					<section>
+						<p class="fragment fade-in-then-semi-out">
+						Note that in the two families, $ \# G_0 / \dim_{\mathbb{Q}} \mathbb{Q} \langle G_0 \rangle  = m/\varphi(m)  $ or $6 m / \varphi(m)$. Looking at this, we can conclude that along no sequence of new constructions will we get $c_d >  O(d \log \log d)$.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						We can leverage the second family to get a sequence that shows that $c_d \ge O(d (\log \log d)^{7/24})$
 						</p>
 						<p class="fragment fade-in-then-semi-out">
 						$\DeclareMathOperator{\ord}{ord}$
-						We pick $$m = \prod_{ \substack{ p \text{ is prime} \\ p \le x \\ 2 \nmid \ord_{p} 2} }^{} p$$ and $r=1$. Then observe that with this, we get that $m$ is odd and $\ord_{m}2$ is also odd. Using the classification just given before, we get that $c_{8\varphi(m)} \ge 24m$. This sequence was the one shown previously. It shows that $c_d \ge O(d (\log \log d)^{7/24})$
+						We pick $$m = \prod_{ \substack{ p \text{ is prime} \\ p \le x \\ 2 \nmid \ord_{p} 2} }^{} p$$ and $r=1$. Then observe that with this, we get that $m$ is odd and $\ord_{m}2$ is also odd. Using the classification just given before, we get that $c_{8\varphi(m)} \ge 24m$. This sequence was the one picturized previously. 
+						</p>
+					</section>
+					<section>
+						<p class="fragment fade-in-then-semi-out">
+						The following is also an interesting sequence made of new examples.
 						</p>
 						<p class="fragment fade-in-then-semi-out">
 						Suppose $q= 1+\prod_{i=1}^{N}p_{i} $ is a prime for some $N$. These number can be used to show
@@ -885,6 +1103,31 @@ Let $\mathbb{Z}\langle G_{0}\rangle  \subseteq \mathcal{O}$ be the $\mathbb{Z}$-
 					<!-- 	Set $r=2$, $K=\mathbb{Q}[\mu_n]$ and one can have a growing collection of finitely many lattices $\mathcal{L}_\mathcal{P}$ such that one of them will have packing efficiency $\ge n$, in space of dimension $2\varphi(n)$. --> 
 					<!-- 	</p> -->
 					<!-- </section> -->
+				</section>
+				<section style="text-align: left;">
+					<h2>
+						Effectiveness
+					</h2>
+					<section>
+
+						<p class="fragment fade-in-then-semi-out">
+						These results prove existence of a lattice with a high packing density. Can we actually construct such lattices algorithmically?
+						</p>
+
+						<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   ">
+							<h4 style="display: inline-block;" > Theorem  </h4> <i> (G., Vlad Serban,  2021)</i> 
+							<br>
+							Let $D$ be a finite-dimensional division algebra over $\mathbb{Q}$. Let $\mathcal{O} \subseteq D$ be an order in $D$ and $G_{0} \subseteq \mathcal{O}$ be a finite group embedded in the multiplicative group of $D$. Then in $d=2\dim_{\mathbb{Q}}D$ dimensional real space, there exists a finite time algorithm to construct a lattice $\Lambda \subseteq \mathbb{R}^d$ such that the packing density of $\Lambda $  is at least
+  \begin{align}
+  \tfrac{1}{2^d} \# G_{0} - \varepsilon, \text{ for every }\varepsilon .
+  \end{align}
+
+						</div>
+						<p class="fragment fade-in-then-semi-out">
+						The approach is based on methods of Moustrou (2017). The idea is that $\int_{Y_d} \Phi_f$ can be approximated by averaging $\Phi_f$ over a growing family of finitely many lattices.
+						</p>
+
+					</section>
 				</section>
 				<section style="text-align: left;">
 					<h2>
