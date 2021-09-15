@@ -1073,9 +1073,19 @@ and the rest as above
 						The following is also an interesting sequence made of new examples.
 						</p>
 						<p class="fragment fade-in-then-semi-out">
-						Suppose $q= 1+\prod_{i=1}^{N}p_{i} $ is a prime for some $N$. These number can be used to show
+Let $\{ p_1,p_2,\dots\}$ be the sequence of all primes and suppose $q= 1+\prod_{i=1}^{N}p_{i} $ is a prime for some $N$. Then we can choose an integer $r$ such that $r \equiv 1 \pmod{p_i}$ for each $i$ but has $\ord_{q} r = q-1$, i.e. $r$ is a generator of $\mathbb{F}_{q}^{*}$. 
+
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						Set $m=q(q-1) = q \prod_{i=1}^{N} p_i$. Then, one can check that $\mathfrak{U}_{m,r}$ is a division algebra so we can have
 						$$  c_{2 (q-1)^{2}\varphi(q-1) } \ge q(q-1)^{2}.$$
 						If there are infinitely many such primes, then this sequence asymptotically approaches $O(d\log \log d)$.
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+						<b>
+							Summary: 
+						</b>
+						Amitsur's work allows us to conclude that there are no asymptotic improvements possible when we allow some non-commutative symmetries.
 						</p>
 					</section>
 					<!-- 	<div class="fragment fade-in-then-semi-out" style="border:3px solid darkgrey;border-radius: 5px;padding: 25px 25px 25px 20px;border-style: outset;   "> -->
